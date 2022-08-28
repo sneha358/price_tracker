@@ -14,16 +14,26 @@ def add_to_db(url, db):
     with open(db, "a") as f:
         f.writelines(url)
 
+def read_from_db(db):
+    results = []
+    with open(db,"r") as f:
+        lines = f.readlines()
+        for line in lines:
+            line = line.strip()
+            results.append(line)
+    return results        
+
 product_url = args.add
 product_id = args.rmv
 product_list = args.all
 
-print(product_list)
-print("found ",product_url)
-print("removed ", product_id )
+# print(product_list)
+# print("found ",product_url)
+# print("removed ", product_id )
 
 if(product_url):
     add_to_db([product_url+"\n"],DB_PATH)
 
 if(product_list):
-    pass
+    products = read_from_db(DB_PATH)
+    print("\n".join(products))
